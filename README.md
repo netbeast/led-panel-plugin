@@ -60,3 +60,4 @@ Topics are: lights, sound, temperature, switch, camera, video, lock, etc...
 Example. If we are working with sound:
 1. GET method will only accept volume, status and track as parameters
 2. POST method will accept the same parameters. 
+# led-panel
