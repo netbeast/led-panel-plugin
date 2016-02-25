@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "express": "^4.13.3",
-    "ledpanel": "^1.0.4"
+    "ledpanel": "^1.0.4",
+    "request": "^2.69.0" 
   },
   "devDependencies": {},
   "scripts": {

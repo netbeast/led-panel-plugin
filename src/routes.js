@@ -19,16 +19,16 @@ loadResources(function (err) {
 
     else if (powerValue === 'off') {
       ledpanel.clear(function(err) {
-        if(err) return res.status(404).send('A problem setting one value occurred')
-          return res.send('Matrix Cleared')
+        if(err) return res.status(400).send('A problem setting one value occurred')
+          return res.send({power: req.body.power})
       })
     }
     else if (powerValue == 'on') {
       var matrix = req.body.data
 
       ledpanel.matrix(matrix, function(err) {
-        if(err) return res.status(404).send('A problem setting one value occurred')
-          return res.send('Matrix Colored')
+        if(err) return res.status(400).send('A problem setting one value occurred')
+          return res.send(req.body)
       })
 
     }
