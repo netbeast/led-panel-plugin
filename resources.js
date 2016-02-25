@@ -4,23 +4,23 @@
     1. Register the device in the database, by following the given structure
     2. If the device is not available anymore, we should delete it from the database
 */
-
+​
 var request = require('request')
-
+​
 module.exports = function (callback) {
-
+​
   // First we ask the database for all the devices of the same brand that are stored
   // We stored the hooks of this devices in the 'objects' array
   var objects = []
-
+​
   // Request to the database
-  request.get(process.env.LOCAL_URL + '/resources?app=NAME_PLUGIN',
+  request.get(process.env.LOCAL_URL + '/resources?app=ledPanel',
   function (err, resp, body) {
     if (err) return callback(err)
     if (!body) return callback()
-
+​
     body = JSON.parse(body)
-
+​
     // Store the found devices in 'objects' array
     if (body.data.length > 0) {
       body.data.forEach(function (device) {
@@ -28,32 +28,32 @@ module.exports = function (callback) {
       })
     }
   })
-
-
-
+​
+​
+​
   // Implement the device discovery method
-
+​
   // When we find a device
   //  1. Look if its already exists on the database.
-  var indx = objects.indexOf('/HOOK/id') // hook == /Namebrand/id. Example. /hueLights, /Sonos
+  var indx = objects.indexOf('/ledPanel/1') // hook == /Namebrand/id. Example. /hueLights, /Sonos
   // We will use the id to access to the device and modify it.
   // Any value to refer this device (MacAddress, for example) can work as id
-
+​
   //  2. If the hook is in 'objects' array, delete it from the array
   if (indx >= 0) {
     objects.splice(indx, 1)
-
+​
   // 3. If this device is not registered on the database, you should register it
   } else {
     //  Use this block to register the found device on the netbeast database
     //  in order to using it later
     request.post({url: process.env.LOCAL_URL + '/resources',
     json: {
-      app: 'NAME_PLUGIN',          // Name of the device brand
+      app: 'led-panel-plugin',          // Name of the device brand
       location: 'none',
-      topic: 'TOPIC',      // lights, bridge, switch, temperature, sounds, etc
+      topic: 'Led',      // lights, bridge, switch, temperature, sounds, etc
       groupname: 'none',
-      hook: '/HOOK/id'  // HOOK == /Namebrand  Example. /hueLights, /Sonos
+      hook: '/ledPanel/1'  // HOOK == /Namebrand  Example. /hueLights, /Sonos
       // We will use the id to access to the device and modify it.
       // Any value to refer this device (MacAddress, for example) can work as id
     }},
@@ -62,7 +62,7 @@ module.exports = function (callback) {
       callback
     })
   }
-
+​
   // If there exists 'hooks' stored on the 'objects' array, it means that
   // this devices are stored on the databases but are not reachable. We should
   // delete this devices from the database using the code given.
@@ -75,7 +75,7 @@ module.exports = function (callback) {
       })
     })
   }
-
+​
   /*
   This function is called from route.js, so
   if you need to pass any information to this file you can do it
