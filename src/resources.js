@@ -22,8 +22,8 @@ module.exports = function (callback) {
     body = JSON.parse(body)
 
     // Store the found devices in 'objects' array
-    if (body.data.length > 0) {
-      body.data.forEach(function (device) {
+    if (body.length > 0) {
+      body.forEach(function (device) {
         if (objects.indexOf(device.hook) < 0) objects.push(device.hook)
       })
     }
