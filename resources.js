@@ -45,8 +45,6 @@ module.exports = function (callback) {
 ​
   // 3. If this device is not registered on the database, you should register it
   } else {
-    //  Use this block to register the found device on the netbeast database
-    //  in order to using it later
     request.post({url: process.env.LOCAL_URL + '/resources',
     json: {
       app: 'led-panel-plugin',          // Name of the device brand
@@ -54,8 +52,6 @@ module.exports = function (callback) {
       topic: 'Led',      // lights, bridge, switch, temperature, sounds, etc
       groupname: 'none',
       hook: '/ledPanel/1'  // HOOK == /Namebrand  Example. /hueLights, /Sonos
-      // We will use the id to access to the device and modify it.
-      // Any value to refer this device (MacAddress, for example) can work as id
     }},
     function (err, resp, body) {
       if (err) return callback(err)
@@ -63,9 +59,6 @@ module.exports = function (callback) {
     })
   }
 ​
-  // If there exists 'hooks' stored on the 'objects' array, it means that
-  // this devices are stored on the databases but are not reachable. We should
-  // delete this devices from the database using the code given.
   if (objects.length > 0) {
     objects.forEach(function (hooks) {
       //  Use this block to delete a device from the netbeast database
@@ -76,10 +69,6 @@ module.exports = function (callback) {
     })
   }
 ​
-  /*
-  This function is called from route.js, so
-  if you need to pass any information to this file you can do it
-  by using the callback ( callback(error, devices) , for example)
-  */
+
   return callback(null)
 }

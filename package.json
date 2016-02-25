@@ -1,7 +1,7 @@
 {
-  "name": "led-panel",
-  "version": "VERSION_PLUGIN",
-  "description": "DESCRIPTION_PLUGIN",
+  "name": "led-panel-plugin",
+  "version": "0.0.1",
+  "description": "Control adafruit led panel",
   "main": "index.js",
   "netbeast": {
     "bootOnLoad": true,
@@ -18,7 +18,8 @@
     "mocha": "^2.3.2",
     "morgan": "^1.6.1",
     "request": "^2.62.0",
-    "socket.io": "^1.3.7"
+    "socket.io": "^1.3.7",
+    "ledpanel": "^1.0.4"
   },
   "devDependencies": {},
   "scripts": {
@@ -27,17 +28,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "GITHUB_REPOSITORY"
+    "url": "https://github.com/netbeast/led-panel-plugin"
   },
   "keywords": [
     "iot",
     "netbeast",
     "pluging"
   ],
-  "author": "YOUR_EMAIL",
+  "author": "luis@netbeast.co",
   "license": "GPL 3",
   "bugs": {
     "url": "ISSUES_CHANNEL"
   },
-  "homepage": "HOMEPAGE"
+  "homepage": "netbeast.co"
 }
