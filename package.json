@@ -27,9 +27,6 @@
     "pluging"
   ],
   "author": "luis@netbeast.co",
-  "license": "GPL 3",
-  "bugs": {
-    "url": "ISSUES_CHANNEL"
-  },
-  "homepage": "netbeast.co"
+  "license": "GPL-3",
+  "homepage": "https://netbeast.co"
 }
