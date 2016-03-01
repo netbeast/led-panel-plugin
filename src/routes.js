@@ -1,5 +1,3 @@
-
-
 var express = require('express')
 var router = express.Router()
 var ledpanel = require('ledpanel')
@@ -7,33 +5,25 @@ var ledpanel = require('ledpanel')
 var loadResources = require('./resources')
 
 loadResources(function (err) {
-  if (err) throw err
+  if (err) console.log(new Error())
 
   router.post('/ledPanel/:id', function (req, res, next) {
+    //  req.body = {power:on/off, data:[]}
+    if (!req.body.power) return res.status(400).send('Incorrect format {power:on/off, data}')
 
-
-    //req.body = {power:on/off, data:[]}
-    var powerValue = req.body.power
-
-    if (!powerValue) return res.status(400).send('Incorrect format {power:on/off, data}')
-
-    else if (powerValue === 'off') {
-      ledpanel.clear(function(err) {
-        if(err) return res.status(400).send('A problem setting one value occurred')
-          return res.send({power: req.body.power})
+    if (req.body.power === 'off' || !req.body.power) {
+      ledpanel.clear(function (err) {
+        if (err) return res.status(400).send('A problem setting one value occurred')
+        return res.send({power: req.body.power})
       })
     }
-    else if (powerValue == 'on') {
-      var matrix = req.body.data
-
-      ledpanel.matrix(matrix, function(err) {
-        if(err) return res.status(400).send('A problem setting one value occurred')
-          return res.send(req.body)
+    else if (req.body.power === 'on' || req.body.power) {
+      ledpanel.matrix(req.body.data, function (err) {
+        if (err) return res.status(400).send('A problem setting one value occurred')
+        return res.send(req.body)
       })
-
     }
     else return res.status(400).send('Incorrect format {power:on/off, data}')
-
   })
 })
 
